@@ -22,7 +22,7 @@ class ResultVC: UIViewController {
         super.viewDidLoad()
         screen?.getAccessToDelegate(delegate: self)
         //Assigning the result to the result label
-        screen?.resultLabel.text = "\(screen?.resultLabel.text ?? "") \(result ?? "")"
+        screen?.resultLabel.text = "\(result ?? "")"
     }
 }
 

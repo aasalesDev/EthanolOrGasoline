@@ -35,12 +35,21 @@ class ResultScreen: UIView {
         return image
     }()
     
-    lazy var resultLabel: UILabel = {
+    lazy var sentenceLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.text = "Abasteça com "
+        return label
+    }()
+    
+    lazy var resultLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 72)
+        label.textAlignment = .center
         return label
     }()
     
@@ -64,6 +73,7 @@ class ResultScreen: UIView {
         addSubview(backgroundImageView)
         addSubview(logoAppImageView)
         addSubview(backButton)
+        addSubview(sentenceLabel)
         addSubview(resultLabel)
         
         // Calling the method to setup contraints
@@ -88,13 +98,17 @@ class ResultScreen: UIView {
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
             //Constraints for the logo image view
-            logoAppImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
+            logoAppImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 80),
             logoAppImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             logoAppImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             logoAppImageView.heightAnchor.constraint(equalToConstant: 150),
             
-            resultLabel.topAnchor.constraint(equalTo: logoAppImageView.bottomAnchor, constant: 180),
-            resultLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            sentenceLabel.topAnchor.constraint(equalTo: logoAppImageView.bottomAnchor, constant: 120),
+            sentenceLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            resultLabel.topAnchor.constraint(equalTo: sentenceLabel.bottomAnchor, constant: 20),
+            resultLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            resultLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
 }
