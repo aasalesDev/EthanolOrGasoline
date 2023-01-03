@@ -86,6 +86,8 @@ class CalculatorScreen: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "Back Button"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        //button.backgroundColor = .systemMint
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -128,7 +130,6 @@ class CalculatorScreen: UIView {
             
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            //backButton.heightAnchor.constraint(equalToConstant: 150),
             
             logoAppImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
             logoAppImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),

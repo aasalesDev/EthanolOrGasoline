@@ -27,6 +27,13 @@ class CalculatorVC: UIViewController {
         screen?.getAccessToDelegate(delegate: self)
         // We need to instantiate the alert in the viewDidLoad
         alert = Alert(controller: self)
+        configTextFields()
+        configTapGesture()
+    }
+    
+    private func configTextFields() {
+        screen?.gasPriceTextField.delegate = self
+        screen?.ethanolPriceTextField.delegate = self
     }
     
     // Creating a function to validate whether the textfields have values for the calculation to be performed
@@ -57,19 +64,38 @@ extension CalculatorVC: CalculatorScreenProtocol {
             let ethanolPrice: Double = (formatter.number(from: screen?.ethanolPriceTextField.text ?? "0.00") as? Double) ?? 0.00
             let gasPrice: Double = (formatter.number(from: screen?.gasPriceTextField.text ?? "0.00") as? Double) ?? 0.00
             
-            // Created an instance of the ResultVC Controller to pass the result to its variable result
-            let vc = ResultVC()
+            // Created a variable of type ResultVC
+            var vc: ResultVC?
             
             if ethanolPrice >= gasPrice * 0.7 {
-                vc.result = "Gasolina"
+                //Initializing vc with the best fuel based on calculation
+                vc = ResultVC(bestFuel: .gas)
             } else {
-                vc.result = "Álcool"
+                //Initializing vc with the best fuel based on calculation
+                vc = ResultVC(bestFuel: .ethanol)
             }
-            navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
         }
     }
     
-    func backButtonTapped() {
+    internal func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func configTapGesture(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTap(){
+        view.endEditing(true)
+    }
+}
+
+extension CalculatorVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

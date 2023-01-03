@@ -9,6 +9,7 @@ import UIKit
 
 protocol ResultScreenProtocol: AnyObject {
     func resultBackButtonTapped()
+    func resultRecalculateButtonTapped()
 }
 
 class ResultScreen: UIView {
@@ -40,7 +41,7 @@ class ResultScreen: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 32)
-        label.text = "Abasteça com "
+        label.text = "Abasteça com"
         return label
     }()
     
@@ -55,16 +56,37 @@ class ResultScreen: UIView {
     
     lazy var backButton: UIButton = {
         let button = UIButton()
+        //button.backgroundColor = .systemMint
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "Back Button"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    @objc func backButtonTapped() {
+    lazy var recalculateButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Calcular Novamente", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 8
+        button.backgroundColor = UIColor(red: 230/255, green: 0/255, blue: 127/255, alpha: 1.0)
+        button.addTarget(self, action: #selector(recalculateButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc private func backButtonTapped() {
         // When the back button is tapped, it shoots the method "backButtonTapped(),
         // which calls the method popViewController in the ResultVC
         delegate?.resultBackButtonTapped()
+    }
+    
+    @objc private func recalculateButtonTapped() {
+        // Calling the protocol method to be shot
+        delegate?.resultRecalculateButtonTapped()
     }
     
     override init(frame: CGRect) {
@@ -75,6 +97,7 @@ class ResultScreen: UIView {
         addSubview(backButton)
         addSubview(sentenceLabel)
         addSubview(resultLabel)
+        addSubview(recalculateButton)
         
         // Calling the method to setup contraints
         setupConstraints()
@@ -108,7 +131,12 @@ class ResultScreen: UIView {
             
             resultLabel.topAnchor.constraint(equalTo: sentenceLabel.bottomAnchor, constant: 20),
             resultLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            resultLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            resultLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            recalculateButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -135),
+            recalculateButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
+            recalculateButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60),
+            recalculateButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }
