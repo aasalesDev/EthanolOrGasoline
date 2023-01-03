@@ -47,8 +47,10 @@ class CalculatorVC: UIViewController {
             alert?.showAlert(title: "Atenção!", message: "Informe a valor do álcool.")
         } else if gasPrice.isEmpty {
             alert?.showAlert(title: "Atenção!", message: "Informe o valor da gasolina.")
+        } else {
+            return true
         }
-        return true
+        return false
     }
 }
 
@@ -75,6 +77,8 @@ extension CalculatorVC: CalculatorScreenProtocol {
                 vc = ResultVC(bestFuel: .ethanol)
             }
             navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+            screen?.ethanolPriceTextField.text = ""
+            screen?.gasPriceTextField.text = ""
         }
     }
     
