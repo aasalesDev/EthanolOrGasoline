@@ -27,8 +27,15 @@ class CalculatorVC: UIViewController {
         screen?.getAccessToDelegate(delegate: self)
         // We need to instantiate the alert in the viewDidLoad
         alert = Alert(controller: self)
+        
+        // Calling the function to configure textfields
         configTextFields()
+        
+        // Calling the function to hide keyboard (inside the same class)
         configTapGesture()
+        
+        // Calling the function to hide keyboard (extension)
+        hideKeyboardWhenTappedAround()
     }
     
     private func configTextFields() {
