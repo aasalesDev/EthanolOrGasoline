@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: For the actions of buttons, let's create a protocol
+/// MARK: For the actions of buttons, let's create a protocol
 protocol CalculatorScreenProtocol: AnyObject {
     func calculateButtonTapped()
     func backButtonTapped()
@@ -15,14 +15,14 @@ protocol CalculatorScreenProtocol: AnyObject {
 
 class CalculatorScreen: UIView {
     
-    // MARK: Creating a variable of protocol type
+    /// MARK: Creating a variable of protocol type
     private weak var delegate: CalculatorScreenProtocol?
     
     func getAccessToDelegate(delegate: CalculatorScreenProtocol?) {
         self.delegate = delegate
     }
     
-    //Creating the elements of the screen
+    ///Creating the elements of the screen
     lazy var backgroundImage: UIImageView = {
        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -79,8 +79,8 @@ class CalculatorScreen: UIView {
     }()
     
     @objc func calculateButtonTapped() {
-        // When the back button is tapped, it shoots the method "calculateButtonTapped(),
-        // which can be called anywhere in the app. In our case, it will be called in the Calculator VC
+        /// When the back button is tapped, it shoots the method "calculateButtonTapped(),
+        /// which can be called anywhere in the app. In our case, it will be called in the Calculator VC
         delegate?.calculateButtonTapped()
     }
     
@@ -95,16 +95,16 @@ class CalculatorScreen: UIView {
     }()
     
     @objc func backButtonTapped() {
-        // When the back button is tapped, it shoots the method "backButtonTapped(),
-        // which calls the method popViewController in the CalculatorVC
+        /// When the back button is tapped, it shoots the method "backButtonTapped(),
+        /// which calls the method popViewController in the CalculatorVC
         delegate?.backButtonTapped()
     }
     
-    // Initiating the view where all subviews will be added
+    /// Initiating the view where all subviews will be added
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // Adding the created elements
+        /// Adding the created elements
         addSubview(backgroundImage)
         addSubview(logoAppImageView)
         addSubview(ethanolPriceTextField)
@@ -112,7 +112,7 @@ class CalculatorScreen: UIView {
         addSubview(calculateButton)
         addSubview(backButton)
         
-        // Calling the method to configure all constraints
+        /// Calling the method to configure all constraints
         configureConstraints()
     }
     
@@ -120,7 +120,7 @@ class CalculatorScreen: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Method to setup all constraints (array of constraints)
+    /// Method to setup all constraints (array of constraints)
     private func configureConstraints() {
         
         NSLayoutConstraint.activate([
